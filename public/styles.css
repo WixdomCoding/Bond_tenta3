@@ -51,3 +51,13 @@ button {
     border-radius: 1rem;
 
 }
+
+img[src="/uploads/"] {
+    display: none;
+}
+
+.card {
+    padding-bottom: 2rem;
+    padding-top: 2rem;
+    border-bottom: black solid 2px;
+}

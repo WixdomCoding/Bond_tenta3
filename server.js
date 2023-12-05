@@ -56,10 +56,6 @@ const requireAuth = (req, res, next) => {
       res.render("index", { posts,user});
   
   });
-  app.get("/signup", (req, res) => {
-      errors = [];
-      res.render("signup", { errors });
-  });
   
 
 // Set EJS as the view engine
@@ -104,6 +100,7 @@ app.post('/login', async (req, res) => {
 
         if (user && user.password === bcrypt.hashSync(password, user.password)) {
             req.session.userId = user.id;
+            req.session.role = user.role;
             res.redirect("/");
         }
 
@@ -135,8 +132,13 @@ app.get('/index', requireAuth, (req, res) => {
 
 
 app.get('/create', requireAuth, (req, res) => {
-    res.render('create');
-});
+    if (req.session.role !== 'admin') {
+        res.redirect("/");
+    }  
+    else {
+        res.render('create');
+    }
+    });
 
 app.post('/create', requireAuth, upload.single('image'), async (req, res) => {
     const { title, description } = req.body;

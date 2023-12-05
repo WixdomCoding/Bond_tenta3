@@ -7,7 +7,6 @@
     <title>Document</title>
 </head>
 <body>
-    <div>
         <nav>
             <% if(user && user.role === 'admin'){ %>
                 <a href="/create">Post</a>
@@ -16,16 +15,15 @@
         </nav>
         <h1>Posts</h1>
         <div class="container">
-            <div class="card">
                 <% posts.forEach(item =>{ %>
+                <div class="card">
                     <h2 class="itemtitle"><%= item.title %></h2>
                     <h3 class="itemdescription"><%= item.description %></h3>
-                    <%= <img class="postimg" src="/uploads/item.image" alt="img"> %>
+                    <img class="postimg" src="/uploads/<%= item.image %>" alt="img">
+                </div>
                 <% }) %>
-            </div>
         </div>
    
-    </div>
        
 </body>
 </html>
