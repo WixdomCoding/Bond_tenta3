@@ -16,7 +16,7 @@ const app = express();
 const port = 3000;
 
 const storage = multer.diskStorage({
-    destination: 'public/uploads/', // Change the destination path
+    destination: 'public/uploads/',
     filename: (req, file, cb) => {
       cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
     },
@@ -24,7 +24,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: true })); // Added to parse form data
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
 app.use(
@@ -117,7 +117,7 @@ app.get("/logout", (req, res) => {
         console.error("Error destroying session:", err);
         res.redirect("/");
         } else {
-        res.redirect("/login"); // Redirect to login or any desired page after logout
+        res.redirect("/login");
         }
     });
 });
@@ -142,7 +142,7 @@ app.get('/create', requireAuth, (req, res) => {
 
 app.post('/create', requireAuth, upload.single('image'), async (req, res) => {
     const { title, description } = req.body;
-    const image = req.file ? req.file.filename : null; // Assuming you're using multer for file uploads
+    const image = req.file ? req.file.filename : null;
   
     try {
       const post = await prisma.post.create({
